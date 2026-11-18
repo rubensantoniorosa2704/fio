@@ -48,6 +48,14 @@ const Pricing = {
   },
 
   /*
+   * Converts the hours and minutes pickers into decimal hours.
+   * Example: 1 hour and 30 minutes becomes 1.5.
+   */
+  toDecimalHours(wholeHours, minutes) {
+    return wholeHours + minutes / 60;
+  },
+
+  /*
    * Base Cost   = (hours * rate) + materials
    * Margin      = Base Cost * marginRate
    * Total Price = Base Cost + Margin
@@ -75,7 +83,8 @@ const CalculatorView = {
   init() {
     this.form = document.getElementById("pricing-form");
     this.inputs = {
-      hours: document.getElementById("input-hours"),
+      hours: document.getElementById("select-hours"),
+      minutes: document.getElementById("select-minutes"),
       rate: document.getElementById("input-rate"),
       materials: document.getElementById("input-materials"),
     };
@@ -100,10 +109,13 @@ const CalculatorView = {
     this.update();
   },
 
-  /* Reads the raw values from the inputs. */
+  /* Reads the raw values from the inputs. Time comes from two pickers. */
   readInputs() {
+    const wholeHours = Number.parseInt(this.inputs.hours.value, 10);
+    const minutes = Number.parseInt(this.inputs.minutes.value, 10);
+
     return {
-      hours: Pricing.parseDecimal(this.inputs.hours.value),
+      hours: Pricing.toDecimalHours(wholeHours, minutes),
       rate: Pricing.parseDecimal(this.inputs.rate.value),
       materials: Pricing.parseDecimal(this.inputs.materials.value),
     };
