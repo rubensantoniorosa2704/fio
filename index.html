@@ -70,32 +70,15 @@
           <legend class="label is-medium">Tempo trabalhado</legend>
           <div class="columns is-mobile">
             <div class="column">
-              <label class="is-sr-only" for="select-hours">Horas</label>
-              <div class="select is-large is-fullwidth is-rounded">
-                <select id="select-hours">
-                  <option value="0" selected>0 h</option>
-                  <option value="1">1 h</option>
-                  <option value="2">2 h</option>
-                  <option value="3">3 h</option>
-                  <option value="4">4 h</option>
-                  <option value="5">5 h</option>
-                  <option value="6">6 h</option>
-                  <option value="7">7 h</option>
-                  <option value="8">8 h</option>
-                  <option value="9">9 h</option>
-                  <option value="10">10 h</option>
-                </select>
+              <label class="is-sr-only" for="input-hours">Horas</label>
+              <div class="control">
+                <input id="input-hours" class="input is-large is-rounded" type="number" inputmode="numeric" min="0" step="1" enterkeyhint="next" placeholder="0 h">
               </div>
             </div>
             <div class="column">
-              <label class="is-sr-only" for="select-minutes">Minutos</label>
-              <div class="select is-large is-fullwidth is-rounded">
-                <select id="select-minutes">
-                  <option value="0" selected>0 min</option>
-                  <option value="15">15 min</option>
-                  <option value="30">30 min</option>
-                  <option value="45">45 min</option>
-                </select>
+              <label class="is-sr-only" for="input-minutes">Minutos</label>
+              <div class="control">
+                <input id="input-minutes" class="input is-large is-rounded" type="number" inputmode="numeric" min="0" step="1" enterkeyhint="next" placeholder="0 min">
               </div>
             </div>
           </div>

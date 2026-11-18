@@ -33,10 +33,10 @@ const formatMoney = (amount) => currencyFormatter.format(amount);
 
 const Pricing = {
   /*
-   * Converts text typed by the user into a non-negative number.
-   * Brazilian format: "1.234,50" (dot = thousands, comma = decimal).
-   * Also accepts "12.5" when no comma is present.
-   * Invalid or empty input becomes 0.
+- Converts text typed by the user into a non-negative number.
+- Brazilian format: "1.234,50" (dot = thousands, comma = decimal).
+- Also accepts "12.5" when no comma is present.
+- Invalid or empty input becomes 0.
    */
   parseDecimal(rawValue) {
     const text = String(rawValue).trim();
@@ -47,21 +47,26 @@ const Pricing = {
     return Number.isFinite(number) && number > 0 ? number : 0;
   },
 
+  parseInteger(rawValue) {
+    const number = Number.parseInt(String(rawValue).trim(), 10);
+    return Number.isFinite(number) && number > 0 ? number : 0;
+  },
+
   /*
-   * Converts the hours and minutes pickers into decimal hours.
-   * Example: 1 hour and 30 minutes becomes 1.5.
+- Converts the hours and minutes pickers into decimal hours.
+- Example: 1 hour and 30 minutes becomes 1.5.
    */
   toDecimalHours(wholeHours, minutes) {
     return wholeHours + minutes / 60;
   },
 
   /*
-   * Base Cost   = (hours * rate) + materials
-   * Margin      = Base Cost * marginRate
-   * Total Price = Base Cost + Margin
+- Base Cost   = (hours * rate) + materials
+- Margin      = Base Cost * marginRate
+- Total Price = Base Cost + Margin
    *
-   * Calculation runs in whole cents so that Total always equals Pay + Stash
-   * exactly, with no floating-point drift on screen.
+- Calculation runs in whole cents so that Total always equals Pay + Stash
+- exactly, with no floating-point drift on screen.
    */
   calculate({ hours, rate, materials }) {
     const baseCents = Math.round((hours * rate + materials) * 100);
@@ -83,8 +88,8 @@ const CalculatorView = {
   init() {
     this.form = document.getElementById("pricing-form");
     this.inputs = {
-      hours: document.getElementById("select-hours"),
-      minutes: document.getElementById("select-minutes"),
+      hours: document.getElementById("input-hours"),
+      minutes: document.getElementById("input-minutes"),
       rate: document.getElementById("input-rate"),
       materials: document.getElementById("input-materials"),
     };
@@ -111,8 +116,8 @@ const CalculatorView = {
 
   /* Reads the raw values from the inputs. Time comes from two pickers. */
   readInputs() {
-    const wholeHours = Number.parseInt(this.inputs.hours.value, 10);
-    const minutes = Number.parseInt(this.inputs.minutes.value, 10);
+    const wholeHours = Pricing.parseInteger(this.inputs.hours.value);
+    const minutes = Pricing.parseInteger(this.inputs.minutes.value);
 
     return {
       hours: Pricing.toDecimalHours(wholeHours, minutes),
