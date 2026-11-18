@@ -1,0 +1,20 @@
+{
+  "name": "Fio",
+  "short_name": "Fio",
+  "description": "Calcule o preço das suas peças de crochê, mesmo sem internet.",
+  "lang": "pt-BR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fff0f5",
+  "theme_color": "#fff0f5",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%23fff0f5'/%3E%3Ccircle cx='256' cy='256' r='160' fill='%23f8b4c8'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='16' stroke-linecap='round' opacity='.85'%3E%3Cpath d='M128 208c80 48 176 48 256 0'/%3E%3Cpath d='M104 288c96 64 208 64 304 0'/%3E%3Cpath d='M160 376c64 32 128 32 192 0'/%3E%3C/g%3E%3C/svg%3E",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

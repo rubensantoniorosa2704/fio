@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="theme-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>Fio</title>
+
+  <!-- PWA: manifest and theme -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#fff0f5">
+
+  <!-- Apple PWA: standalone mode, status bar and home screen title -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Fio">
+
+  <!-- Nunito: rounded, friendly typeface. Cached by sw.js after the first visit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+
+  <!-- Bulma is the only styling framework, loaded from CDN and cached by sw.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+
+  <!-- Pastel theme: overrides Bulma's own colour variables, no new classes -->
+  <style>
+    html.theme-light {
+      --bulma-family-primary: "Nunito", "SF Pro Rounded", system-ui, sans-serif;
+      --bulma-body-background-color: hsl(340, 100%, 98%);
+
+      --bulma-scheme-h: 340;
+      --bulma-scheme-s: 40%;
+      --bulma-text-h: 340deg;
+      --bulma-text-s: 18%;
+      --bulma-text-l: 38%;
+      --bulma-text-strong-l: 30%;
+
+      --bulma-primary-h: 340deg;
+      --bulma-primary-s: 80%;
+      --bulma-primary-l: 80%;
+      --bulma-link-h: 340deg;
+      --bulma-link-s: 70%;
+      --bulma-link-l: 75%;
+      --bulma-success-h: 150deg;
+      --bulma-success-s: 55%;
+      --bulma-info-h: 265deg;
+      --bulma-info-s: 70%;
+    }
+
+    .box {
+      --bulma-box-radius: 1.5rem;
+      --bulma-box-shadow: 0 0.5rem 1.25rem hsla(340, 60%, 70%, 0.18);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="section">
+    <div class="container is-max-tablet">
+
+      <header class="mb-5">
+        <h1 class="title is-4">Fio 🧶</h1>
+        <p class="subtitle is-6">Descubra quanto cobrar pela sua peça.</p>
+      </header>
+
+      <form id="pricing-form" novalidate autocomplete="off">
+        <div class="field">
+          <label class="label is-medium" for="input-hours">Horas trabalhadas</label>
+          <div class="control">
+            <input id="input-hours" class="input is-medium is-rounded" type="text" inputmode="decimal" enterkeyhint="next" placeholder="0">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label is-medium" for="input-rate">Valor da hora (R$)</label>
+          <div class="control">
+            <input id="input-rate" class="input is-medium is-rounded" type="text" inputmode="decimal" enterkeyhint="next" placeholder="0,00">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label is-medium" for="input-materials">Custo dos materiais (R$)</label>
+          <div class="control">
+            <input id="input-materials" class="input is-medium is-rounded" type="text" inputmode="decimal" enterkeyhint="done" placeholder="0,00">
+          </div>
+        </div>
+      </form>
+
+      <div class="box has-background-primary-light mt-5" aria-live="polite">
+        <p class="is-size-7 has-text-weight-bold is-uppercase">Preço total a cobrar</p>
+        <p id="output-total" class="title is-1 mb-0">R$ 0,00</p>
+      </div>
+
+      <div class="columns is-mobile">
+        <div class="column">
+          <div class="box has-background-success-light" aria-live="polite">
+            <p class="is-size-7 has-text-weight-bold is-uppercase">Pagamento da artesã</p>
+            <p id="output-pay" class="title is-4 mb-0">R$ 0,00</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box has-background-info-light" aria-live="polite">
+            <p class="is-size-7 has-text-weight-bold is-uppercase">Reserva do negócio</p>
+            <p id="output-stash" class="title is-4 mb-0">R$ 0,00</p>
+            <p class="is-size-7">margem de <span id="margin-percent"></span></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
