@@ -1,7 +1,7 @@
 "use strict";
 
 /* Bump this value on every release so clients drop the old cache. */
-const CACHE_NAME = "crochet-studio-v4";
+const CACHE_NAME = "crochet-studio-v5";
 
 const BULMA_URL = "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
 const FONT_CSS_URL = "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap";

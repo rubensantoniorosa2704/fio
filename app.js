@@ -52,6 +52,14 @@ const Pricing = {
     return Number.isFinite(number) && number > 0 ? number : 0;
   },
 
+  sumMaterials(costs) {
+    const totalCents = costs.reduce(
+      (sum, cost) => sum + Math.round(cost * 100),
+      0
+    );
+    return totalCents / 100;
+  },
+
   /*
 - Converts the hours and minutes pickers into decimal hours.
 - Example: 1 hour and 30 minutes becomes 1.5.
@@ -91,8 +99,10 @@ const CalculatorView = {
       hours: document.getElementById("input-hours"),
       minutes: document.getElementById("input-minutes"),
       rate: document.getElementById("input-rate"),
-      materials: document.getElementById("input-materials"),
     };
+    this.materialsList = document.getElementById("materials-list");
+    this.materialTemplate = document.getElementById("material-row-template");
+    this.addMaterialButton = document.getElementById("add-material");
     this.outputs = {
       total: document.getElementById("output-total"),
       pay: document.getElementById("output-pay"),
@@ -105,6 +115,14 @@ const CalculatorView = {
     /* Recalculate on every keystroke so no "Calculate" button is needed. */
     this.form.addEventListener("input", () => this.update());
 
+    this.addMaterialButton.addEventListener("click", () => this.addMaterialRow());
+    this.materialsList.addEventListener("click", (event) => {
+      const removeButton = event.target.closest('[data-action="remove"]');
+      if (!removeButton) return;
+      removeButton.closest("[data-material-row]")?.remove();
+      this.update();
+    });
+
     /* The keyboard's Enter/Done key closes the keyboard instead of reloading. */
     this.form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -114,15 +132,27 @@ const CalculatorView = {
     this.update();
   },
 
+  addMaterialRow() {
+    const fragment = this.materialTemplate.content.cloneNode(true);
+    const nameInput = fragment.querySelector('[data-field="name"]');
+    this.materialsList.appendChild(fragment);
+    nameInput?.focus();
+    this.update();
+  },
+
   /* Reads the raw values from the inputs. Time comes from two pickers. */
   readInputs() {
     const wholeHours = Pricing.parseInteger(this.inputs.hours.value);
     const minutes = Pricing.parseInteger(this.inputs.minutes.value);
+    const materialInputs = this.materialsList.querySelectorAll('[data-field="cost"]');
+    const materialCosts = Array.from(materialInputs, (input) =>
+      Pricing.parseDecimal(input.value)
+    );
 
     return {
       hours: Pricing.toDecimalHours(wholeHours, minutes),
       rate: Pricing.parseDecimal(this.inputs.rate.value),
-      materials: Pricing.parseDecimal(this.inputs.materials.value),
+      materials: Pricing.sumMaterials(materialCosts),
     };
   },
 

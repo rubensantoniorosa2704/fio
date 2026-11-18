@@ -91,13 +91,72 @@
           </div>
         </div>
 
-        <div class="field">
-          <label class="label is-medium" for="input-materials">Custo dos materiais (R$)</label>
-          <div class="control">
-            <input id="input-materials" class="input is-medium is-rounded" type="text" inputmode="decimal" enterkeyhint="done" placeholder="0,00">
+        <fieldset class="field">
+          <legend class="label is-medium">Custo dos materiais (R$)</legend>
+          <div class="columns is-mobile is-variable is-2 mb-1" aria-hidden="true">
+            <div class="column">
+              <span class="is-size-7 has-text-weight-semibold">Nome</span>
+            </div>
+            <div class="column is-4">
+              <span class="is-size-7 has-text-weight-semibold">Valor (R$)</span>
+            </div>
+            <div class="column is-narrow">
+              <span class="button is-medium is-invisible py-0" style="height: 0; overflow: hidden;">
+                <span class="icon"><svg width="18" height="18"></svg></span>
+              </span>
+            </div>
+          </div>
+          <div id="materials-list">
+            <div class="columns is-mobile is-vcentered is-variable is-2 mb-2" data-material-row>
+              <div class="column">
+                <input class="input is-medium is-rounded" type="text" data-field="name" enterkeyhint="next" placeholder="Material" aria-label="Nome do material">
+              </div>
+              <div class="column is-4">
+                <input class="input is-medium is-rounded" type="text" inputmode="decimal" data-field="cost" enterkeyhint="done" placeholder="0,00" aria-label="Valor do material (R$)">
+              </div>
+              <div class="column is-narrow">
+                <button class="button is-medium is-rounded is-danger is-light" type="button" data-action="remove" aria-label="Remover item">
+                  <span class="icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button id="add-material" class="button is-medium is-rounded is-primary is-light mt-1" type="button" aria-label="Adicionar item">
+            <span class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+        </fieldset>
+      </form>
+
+      <template id="material-row-template">
+        <div class="columns is-mobile is-vcentered is-variable is-2 mb-2" data-material-row>
+          <div class="column">
+            <input class="input is-medium is-rounded" type="text" data-field="name" enterkeyhint="next" placeholder="Material" aria-label="Nome do material">
+          </div>
+          <div class="column is-4">
+            <input class="input is-medium is-rounded" type="text" inputmode="decimal" data-field="cost" enterkeyhint="done" placeholder="0,00" aria-label="Valor do material (R$)">
+          </div>
+          <div class="column is-narrow">
+            <button class="button is-medium is-rounded is-danger is-light" type="button" data-action="remove" aria-label="Remover item">
+              <span class="icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </span>
+            </button>
           </div>
         </div>
-      </form>
+      </template>
 
       <div class="box has-background-primary-light mt-5" aria-live="polite">
         <p class="is-size-7 has-text-weight-bold is-uppercase">Preço total a cobrar</p>
